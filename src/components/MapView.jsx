@@ -4,6 +4,10 @@ import L from 'leaflet';
 // Vue d'attente avant le chargement de l'index : App cadre ensuite sur les tracés.
 const FRANCE = [46.6, 2.5];
 
+// Part des tracés les plus excentrés, par côté et par axe, ignorée au premier
+// cadrage. 5 % écarte les voyages lointains sans rogner la région habituelle.
+const FAR = 0.05;
+
 // Fonds de carte disponibles. Le premier est le calque par défaut.
 const BASEMAPS = [
   ['Plan', 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -76,13 +80,35 @@ export default function MapView({ routes, tracks, hidden, focused, hovered, onSe
     const ro = new ResizeObserver(() => map.current?.invalidateSize());
     ro.observe(el.current);
 
+    // Ne cadre que ce qui est réellement sur la carte : un tracé masqué ou
+    // écarté par le filtre moto ne doit pas élargir la vue à lui tout seul.
+    const shown = () => [...layers.current.values()].filter(l => map.current.hasLayer(l.group));
+    const frame = list => {
+      const b = L.latLngBounds([]);
+      list.forEach(l => b.extend(l.bounds));
+      if (b.isValid()) map.current.fitBounds(b, { padding: [40, 40] });
+    };
+
     onReady?.({
-      // Ne cadre que ce qui est réellement sur la carte : un tracé masqué ou
-      // écarté par le filtre moto ne doit pas élargir la vue à lui tout seul.
-      fitAll: () => {
-        const b = L.latLngBounds([]);
-        layers.current.forEach(l => { if (map.current.hasLayer(l.group)) b.extend(l.bounds); });
-        if (b.isValid()) map.current.fitBounds(b, { padding: [40, 40] });
+      fitAll: () => frame(shown()),
+      // Le gros des tracés : un seul voyage lointain ne doit pas réduire à un
+      // point tout ce qu'on roule près de chez soi. On écarte, sur chaque axe,
+      // les tracés dont le centre tombe dans les FAR extrêmes. Sous 20 tracés,
+      // rien n'est écarté.
+      fitMain: () => {
+        const list = shown();
+        const centers = list.map(l => l.bounds.getCenter());
+        const cut = Math.floor(list.length * FAR);
+        const range = key => {
+          const v = centers.map(c => c[key]).sort((a, b) => a - b);
+          return [v[cut], v[v.length - 1 - cut]];
+        };
+        const [lat0, lat1] = range('lat');
+        const [lng0, lng1] = range('lng');
+        frame(list.filter((_, i) => {
+          const { lat, lng } = centers[i];
+          return lat >= lat0 && lat <= lat1 && lng >= lng0 && lng <= lng1;
+        }));
       },
     });
     return () => { ro.disconnect(); map.current.remove(); };

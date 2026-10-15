@@ -34,13 +34,14 @@ export default function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Premier cadrage sur l'ensemble des tracés, une seule fois : la carte ne
-  // doit pas sauter à chaque import ou changement de filtre.
+  // Premier cadrage sur le gros des tracés, une seule fois : la carte ne doit
+  // pas sauter à chaque import ou changement de filtre. « Tout cadrer » montre
+  // le reste.
   const framed = useRef(false);
   useEffect(() => {
     if (framed.current || loading || !map) return;
     framed.current = true;
-    map.fitAll();
+    map.fitMain();
   }, [loading, map]);
 
   // La couleur suit l'ordre d'import, pas l'ordre d'affichage : trier la liste

@@ -96,9 +96,12 @@ Satellite (Esri) / Relief (OpenTopoMap)**, et un toggle **« Étapes »** qui
 affiche/masque les points d'étape via une classe `stops-hidden` sur le
 conteneur — indépendant du masquage par tracé, sans toucher aux calques.
 
-La carte s'ouvre sur la France entière puis **se cadre sur les tracés** dès que
-l'index est chargé (une seule fois, dans `App`). Pas de centre codé en dur sur
-une région : il trahirait où roule l'auteur.
+La carte s'ouvre sur la France entière puis **se cadre sur le gros des tracés**
+dès que l'index est chargé (une seule fois, dans `App`, via `fitMain`) : sur
+chaque axe, les 5 % de tracés les plus excentrés (`FAR`) sont ignorés, pour
+qu'un voyage lointain ne réduise pas la région habituelle à un point. « Tout
+cadrer » (`fitAll`) montre tout. Pas de centre codé en dur sur une région : il
+trahirait où roule l'auteur.
 
 Le compteur global « roulés » a été retiré de l'en-tête : inutile tant que la
 source ne contient que des roadbooks planifiés (`recorded` reste calculé et
@@ -185,3 +188,6 @@ Commentaires et libellés d'interface en français. Le code commente le
 *pourquoi*, pas le *quoi*. Palette et typographie définies dans
 `src/styles.css` — Barlow Condensed pour les titres, IBM Plex Mono pour les
 chiffres. Pas de framework CSS.
+
+`CHANGELOG.md` au format Keep a Changelog : chaque changement notable y ajoute
+une entrée courte sous `[Unreleased]`, dans le même commit.
