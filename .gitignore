@@ -1,0 +1,21 @@
+node_modules
+dist
+*.tmp
+.DS_Store
+
+# Données personnelles : tracés, index, table des motos, cache de l'app.
+# Rien de tout ça ne doit jamais être versionné.
+data/
+gpx-perso/
+*.gpx
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.json.gz
+*.csv
+
+# Notes et scripts propres à l'instance locale
+CLAUDE.local.md
+prive/
+.claude/settings.local.json
+.env*
