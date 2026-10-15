@@ -1,9 +1,5 @@
 # Changelog
 
-Les évolutions notables du projet. Format inspiré de
-[Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions selon
-[SemVer](https://semver.org/lang/fr/).
-
 ## [Unreleased]
 
 ### Ajouté
