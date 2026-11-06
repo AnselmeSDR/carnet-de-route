@@ -150,3 +150,10 @@ d'import.
 - Les tuiles viennent d'OpenStreetMap, Esri et OpenTopoMap. Pour un usage perso
   c'est dans les clous de leur politique d'usage ; au-delà, prévoir un
   fournisseur de tuiles.
+
+## Licence
+
+[AGPL-3.0](LICENSE) — libre d'utiliser, de modifier et de partager ; toute
+version modifiée, distribuée ou proposée en ligne doit rester open source sous
+la même licence. Une licence commerciale est disponible pour un usage en code
+fermé : anselme8@icloud.com.
