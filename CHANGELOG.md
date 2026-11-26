@@ -9,3 +9,4 @@
 - À l'ouverture, la carte se cadre sur la région où l'on roule le plus ;
   « Tout cadrer » montre tous les tracés.
 - Licence AGPL-3.0, avec licence commerciale possible pour un usage en code fermé.
+- README : présentation du projet et capture d'écran.

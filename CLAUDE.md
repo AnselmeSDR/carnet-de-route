@@ -3,7 +3,12 @@
 App de visualisation de trajets moto à partir de fichiers GPX exportés de
 Liberty Rider. Mono-utilisateur, tourne en local. Pas de déploiement prévu.
 
-**Le dépôt est public.** Les données (`data/`, `gpx-perso/`) sont gitignorées
+**Dépôts :** GitLab `gitlab.com/AnselmeSDR/carnet-de-route` (principal) et
+miroir GitHub `github.com/AnselmeSDR/carnet-de-route`, privés pour l'instant ;
+`origin` lit GitLab et pousse sur les deux. Licence AGPL-3.0 avec licence
+commerciale à côté.
+
+**Tout est écrit comme pour un dépôt public.** Les données (`data/`, `gpx-perso/`) sont gitignorées
 et ne doivent jamais y entrer, pas plus qu'un lieu, un nom de trajet, un modèle
 de moto ou un chiffre tiré de l'archive personnelle. Ce qui est propre à
 l'instance locale (témoins de non-régression, état de l'archive) vit dans
@@ -188,6 +193,10 @@ Commentaires et libellés d'interface en français. Le code commente le
 *pourquoi*, pas le *quoi*. Palette et typographie définies dans
 `src/styles.css` — Barlow Condensed pour les titres, IBM Plex Mono pour les
 chiffres. Pas de framework CSS.
+
+**La capture du README (`docs/capture.webp`) est faite sur des trajets de
+démonstration** (itinéraires fictifs dans les Alpes, motos génériques), dans une
+copie de l'app à part — jamais sur l'archive perso ni sur le `data/` local.
 
 `CHANGELOG.md` au format Keep a Changelog : chaque changement notable y ajoute
 une entrée courte sous `[Unreleased]`, dans le même commit.
